@@ -77,7 +77,7 @@
         {
             text: "Are the flowers tubular shaped?",
             choices: [
-                { text: "Yes", result: "String" },
+                { text: "Yes", result: "Parakeet Flower" },
                 { text: "No", next: 9 }
             ]
         },
@@ -112,6 +112,7 @@
             button.addEventListener('click', () => {
                 if (choice.result) {
                     document.getElementById('game').style.display = 'none';
+                    location.href = `${convertResultToUrl(choice.result)}.html`;
                     document.getElementById('result').innerText = `The flower is: ${choice.result}`;
                 } else {
                     currentQuestion = choice.next;
@@ -120,6 +121,28 @@
             });
             choicesDiv.appendChild(button);
         });
+    }
+
+    function convertResultToUrl(a){
+        if(a == "Yellow Bells"){
+            return "tb";
+        } else if(a == "Bay Biscayne Creeping-Oxeye"){
+            return "bbco";
+        } else if(a == "Mexican"){
+            return "mp";
+        } else if(a == "Oleander"){
+            return "o";
+        } else if(a == "Fragipani"){
+            return "rf";
+        } else if(a == "Bougain"){
+            return "b";
+        } else if(a == "Jasmine"){
+            return "j";
+        } else if(a == "Jungle Flower"){
+            return "sj";
+        } else{
+            return "pf";
+        }
     }
 
     showQuestion();
