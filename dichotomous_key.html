@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Identification Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .button {
+            margin: 5px;
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: deepskyblue;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Identify the Flower</h1>
+<div id="game">
+    <div class="question" id="question"></div>
+    <div id="choices"></div>
+</div>
+<div id="result"></div>
+
+<script>
+    const questions = [
+        {
+            text: "Are the flowers yellow?",
+            choices: [
+                { text: "Yes", next: 1 },
+                { text: "No", next: 4 }
+            ]
+        },
+        {
+            text: "Are the flowers trumpet shaped?",
+            choices: [
+                { text: "Yes", result: "Yellow Bells" },
+                { text: "No", result: "Bay Biscayne Creeping-Oxeye" }
+            ]
+        },
+        {
+            text: "Are the flowers bell shaped?",
+            choices: [
+                { text: "Yes", next: 5 },
+                { text: "No", next: 7 }
+            ]
+        },
+        {
+            text: "Are the flowers purple?",
+            choices: [
+                { text: "Yes", result: "Mexican" },
+                { text: "No", result: "Oleander" }
+            ]
+        },
+        {
+            text: "Is it a tree?",
+            choices: [
+                { text: "Yes", result: "Fragipani" },
+                { text: "No", next: 8 }
+            ]
+        },
+        {
+            text: "Are the flowers tubular shaped?",
+            choices: [
+                { text: "Yes", result: "String" },
+                { text: "No", next: 9 }
+            ]
+        },
+        {
+            text: "Do the flowers have elliptical leaves?",
+            choices: [
+                { text: "Yes", result: "Bougain" },
+                { text: "No", next: 10 }
+            ]
+        },
+        {
+            text: "Are the flowers white?",
+            choices: [
+                { text: "Yes", result: "Jasmine" },
+                { text: "No", result: "Jungle Flower" }
+            ]
+        }
+    ];
+
+    let currentQuestion = 0;
+
+    function showQuestion() {
+        const question = questions[currentQuestion];
+        document.getElementById('question').innerText = question.text;
+
+        const choicesDiv = document.getElementById('choices');
+        choicesDiv.innerHTML = '';
+        question.choices.forEach(choice => {
+            const button = document.createElement('button');
+            button.innerText = choice.text;
+            button.classList.add('button');
+            button.addEventListener('click', () => {
+                if (choice.result) {
+                    document.getElementById('game').style.display = 'none';
+                    document.getElementById('result').innerText = `The flower is: ${choice.result}`;
+                } else {
+                    currentQuestion = choice.next;
+                    showQuestion();
+                }
+            });
+            choicesDiv.appendChild(button);
+        });
+    }
+
+    showQuestion();
+</script>
+
+</body>
+</html>
